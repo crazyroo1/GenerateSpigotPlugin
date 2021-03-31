@@ -8,9 +8,14 @@ workingDirectory = input("Enter the full path to where you want to generate the 
 if workingDirectory[-1] != "/":
     workingDirectory += "/"
 
-if not os.path.exists(workingDirectory):
-    print("This directory does not exist.")
+if not os.path.exists(workingDirectory) and not os.path.isfile(workingDirectory):
+    print("This directory does not exist or is a file, not a directory.")
+    print("Check your entry and try again")
     exit(1)
+
+if input("All files in " + workingDirectory + " will be deleted. OK? (y/n): ").lower() == "y":
+    for file in os.listdir(workingDirectory):
+        os.remove(workingDirectory + file)
 
 group = input("Group (ex: com.crazyroo1): ")
 pluginName = input("Plugin Name (CamelCase): ")
